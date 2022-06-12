@@ -1,0 +1,37 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    List<String> list = new ArrayList<>();
+    public List<String> binaryTreePaths(TreeNode root) {
+        String path = "";
+        list = binaryTreePath(root, path);
+        return list;
+    }
+    public List<String> binaryTreePath(TreeNode root, String path) {
+        if(root == null) return list;
+        path = path + root.val;
+        if(root.left != null) {
+            path = path + "->";
+            list = binaryTreePath(root.left, path);
+        }
+        if(root.right != null) {
+            if(root.left == null) path = path + "->";
+            list = binaryTreePath(root.right, path);
+        }
+        if(root.left == null && root.right == null) list.add(path);
+        return list;
+    }
+}
