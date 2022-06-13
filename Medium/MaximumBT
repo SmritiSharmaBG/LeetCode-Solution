@@ -1,0 +1,22 @@
+class Solution {
+    public static TreeNode constructMaximumBinaryTree(int[] nums) {
+        return getTree(nums,0,nums.length-1);
+    }
+
+    private static TreeNode getTree(int[] nums, int start, int end) {
+        if(start > end) return null;
+        int maxIndex = findMaxIndex(nums, start, end);
+        TreeNode root = new TreeNode(nums[maxIndex]);
+        root.left = getTree(nums, start, maxIndex-1);
+        root.right = getTree(nums, maxIndex+1, end);
+        return root;
+    }
+
+    static int findMaxIndex(int[] nums, int start, int end) {
+        int max = start;
+        for(int i = start; i <= end; i++) {
+            if(nums[i] > nums[max]) max= i;
+        }
+        return max;
+    }
+}
