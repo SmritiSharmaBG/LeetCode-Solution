@@ -1,0 +1,32 @@
+package com.dataStructure.BST;
+
+public class LeftLeafSum {
+    static class Node {
+        int val;
+        Node left, right;
+
+        Node(int data) {
+            this.val = data;
+            left = right = null;
+        }
+    }
+
+    public static void main(String[] args) {
+        Node root = new Node(3);
+        root.left = new Node(9);
+        root.right = new Node(20);
+        root.right.right = new Node(17);
+        root.right.left = new Node(15);
+        System.out.println(sumOfLeftLeaves(root));
+    }
+
+    static int sum = 0;
+
+    public static int sumOfLeftLeaves(Node root) {
+        if (root == null) return sum;
+        if (root.left != null && root.left.left == null && root.left.right == null) sum = sum + root.left.val;
+        sum = sumOfLeftLeaves(root.left);
+        sum = sumOfLeftLeaves(root.right);
+        return sum;
+    }
+}
