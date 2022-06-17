@@ -1,0 +1,36 @@
+class BrowserHistory {
+    
+    String[] b = new String[101];
+    int top = 0;
+    int size = 0;
+    public BrowserHistory(String homepage) {
+        b[top] = homepage;
+    }
+    
+    public void visit(String url) {
+        size = ++top;
+        //size = top > size ? ++size : size;
+        //size ++;
+        b[top] = url;
+    }
+    
+    public String back(int steps) {
+        top = top - steps;
+        top = top < 0 ? 0 : top;
+        return b[top];
+    }
+    
+    public String forward(int steps) {
+        int t = top + steps;
+        top = t > size ? size : t;
+        return b[top];
+    }
+}
+
+/**
+ * Your BrowserHistory object will be instantiated and called as such:
+ * BrowserHistory obj = new BrowserHistory(homepage);
+ * obj.visit(url);
+ * String param_2 = obj.back(steps);
+ * String param_3 = obj.forward(steps);
+ */
