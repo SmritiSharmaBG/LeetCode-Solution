@@ -1,0 +1,32 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int sum = 0;
+    public int sumEvenGrandparent(TreeNode root) {
+        int gp = -1; int p = -1;
+        return findSum(root, gp, p);
+    }
+    
+    public int findSum(TreeNode root, int gp, int p) {
+        if(root == null) return sum;
+        if(gp % 2 == 0) sum += root.val;
+        gp = p;
+        p = root.val;
+        sum = findSum(root.left, gp, p);
+        sum = findSum(root.right, gp, p);
+        return sum;
+    }
+}
