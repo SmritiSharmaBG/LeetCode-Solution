@@ -1,0 +1,31 @@
+class Solution {
+    ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+    public int[] loudAndRich(int[][] richer, int[] quiet) {
+        int n = quiet.length;
+        for (int i = 0; i < n; i++) adj.add(new ArrayList<Integer>());
+        int[] ans = new int[n];
+        for (int[] i : richer) {
+            adj.get(i[1]).add(i[0]);
+        }
+        for(int i = 0; i < n; i++) ans[i] = -1;
+        for (int i = 0; i < n; i ++) {
+            ans[i] = dfs(i, quiet, ans);
+        }
+        return ans;
+    }
+    
+    public int dfs(int i, int[] quiet, int[] ans) {
+        if(ans[i] != -1) return ans[i];
+        int minPos = i;
+        int min = quiet[i];
+        for (int it : adj.get(i)) {
+            int index = dfs(it, quiet, ans);
+            if(min >  quiet[index]) {
+                min = quiet[index];
+                minPos = index;
+            }
+        } 
+        ans[i] = minPos;
+        return minPos;
+    }
+}
