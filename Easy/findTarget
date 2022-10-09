@@ -1,0 +1,35 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+        return rec(root, k, root);
+    }
+    
+    private boolean rec(TreeNode root, int k, TreeNode Root) {
+        if(root == null) return false;
+        if (rec(root.left, k, Root)) return true;
+        if (isPresent(k - root.val, Root, root)) return true;
+        if (rec(root.right, k, Root)) return true;
+        return false;
+    }
+    
+    private boolean isPresent(int d, TreeNode Root, TreeNode root) {
+        if (Root == null) return false;
+        if(Root.val == d && Root != root) return true;
+        if(Root.val > d) return isPresent(d, Root.left, root);
+        else return isPresent(d, Root.right, root);
+    } 
+}
