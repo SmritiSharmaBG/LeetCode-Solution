@@ -1,0 +1,26 @@
+class Solution {
+    public String countAndSay(int n) {
+        return rec(n);
+    } 
+    
+    private String rec(int i) {
+        if (i == 1) return "1";
+        String say = rec(i - 1);
+        return rec(0, say.charAt(0), 0, say, say.length(), "");
+    }
+    
+    private static String rec(int index, char prev, int freq, String str, int n, String ans) {
+            if (index == n) {
+                String s = freq + "" + prev;
+                return ans+s;
+            }
+            char c = str.charAt(index);
+            if (c == prev) {
+                ans = ans + rec(index + 1, c, freq + 1, str, n, ans);
+            } else {
+                String s = freq + "" + prev;
+                ans = ans + s + rec(index + 1, c, 1, str, n, ans);
+            }
+            return ans;
+        }
+}
